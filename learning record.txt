@@ -6,3 +6,13 @@
 
     video-9: 配置语法
         1) 配置文件由指令块及指令组成。指令块由｛｝括起来；指令以';'结尾，用空格与参数隔开
+
+    video-10: nginx命令行
+        1) nginx -h
+        2) 热部署
+            > 替换旧版本的nginx二进制文件
+            > 向当前运行的nginx进程发送消息     kill -USR2 nginx-master-pid
+            > 向nginx的worker进程发送消息      kill -WINCH nginx-master-pid
+        3) 日志切割
+            > nginx -s reopen
+            > 定时任务处理
