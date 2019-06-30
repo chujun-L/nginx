@@ -16,3 +16,23 @@
         3) 日志切割
             > nginx -s reopen
             > 定时任务处理
+
+    video-11: 配置静态资源服务器
+        1) dlib(machine learning algorithms)，将它的docs文件夹拷贝到nginx的安装目录，然后改名为dlib
+        2) 修改nginx.conf文件：
+            > user root;            修改nginx-woker的用户权限，如果与启动用户不一致会导致403出错
+            > server {
+                listen  8080;
+
+                location / {
+                    alias   dlib/;
+                }
+            }
+        3)  gzip on;                    启用gzip
+            gzip_min_length     1;      
+            gzip_comp_level     2;      压缩等级
+            gzip_types  text/plain application/x-javascript text/css application/xml
+                        text/javascript application/x-httpd-php image/jpeg image/gif image/png;
+        4) autoindex on;
+        5) set $limit_rate 1k;          限制传输的速率
+        6) log_format   main            日志格式        access_log  存放的路径
