@@ -1,0 +1,8 @@
+
+极客时间：nginx核心知识100讲
+
+    video-8: 从原码编译nginx
+        nginx-1.16.0# ./configure  --prefix=your path && make && make install
+
+    video-9: 配置语法
+        1) 配置文件由指令块及指令组成。指令块由｛｝括起来；指令以';'结尾，用空格与参数隔开
