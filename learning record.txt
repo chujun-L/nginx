@@ -74,3 +74,14 @@
                     proxy_cache_valid 200 304 302 1d;
                 }
             }
+
+    video-13: GoAccess可视化并实时监控access日志
+        1) 安装goaccess: yum install goaccess
+        2) 运行的命令: goaccess access.log -o ../html/report.html --real-time-html --time-format='%H:%M:%S' --date-format='%d/%b/%Y' --log-format=COMBINED
+        3) server {
+                location /report.html {
+                    alias /home/tkstation/openresty/nginx/html/report.html;
+                }
+            }
+        4) 开放服务器的7890端口: sudo firewall-cmd --zone=public --add-port=7890/tcp --permanet && sudo firewall-cmd --reload
+        5) 访问goaccess页面: http://192.168.1.101/report.html
