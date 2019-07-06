@@ -97,9 +97,18 @@
 
     video-17: SSL协议握手时nginx的性能瓶颈?
 
-    video-18: 用免费SSL证书实现一个HTTP站点
+    video-18: 用免费SSL证书实现一个HTTP站点 (还没实现)
         1) Let's encrypt数字证书认证机构，可以提供免费的SSL/TLS证书
         2) nginx编译时要带参数 --with-http_ssl_module
         3) 安装: sudo yum install python2-certbot-nginx 成功安装后会产生certbot命令
         4) certbot --nginx --nginx-server-root=/home/tkstation/nginx/conf -d www.laichujun.xyz
             3.1) 有两个选择1. No redirect    2. Redirect        选择 1
+
+    video-19: 基于openresty用lua语言实现简单服务(响应User-Agent)
+        1) 在openresty的nginx.conf中加入
+            location /lua {
+                default_type text/html;
+                content_by_lua 'ngx.say("User-Agent: ", ngx.req.get_headers()["User-Agent"])';
+            }
+        2) ./openresty -s reload
+        3) 在浏览器中输入192.168.1.101/lua，则会显示响应到的User-Agent字段
