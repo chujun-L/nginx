@@ -85,3 +85,21 @@
             }
         4) 开放服务器的7890端口: sudo firewall-cmd --zone=public --add-port=7890/tcp --permanet && sudo firewall-cmd --reload
         5) 访问goaccess页面: http://192.168.1.101/report.html
+
+    video-14: SSL安全协议
+
+    video-15: 对称与非对称加密的应用场景
+
+    video-16: SSL证书的公信力如何保证？
+        1) 域名验证：domain validated, DV
+        2) 组织验证：organization validated, OV
+        3) 扩展验证：extended validated, EV
+
+    video-17: SSL协议握手时nginx的性能瓶颈?
+
+    video-18: 用免费SSL证书实现一个HTTP站点
+        1) Let's encrypt数字证书认证机构，可以提供免费的SSL/TLS证书
+        2) nginx编译时要带参数 --with-http_ssl_module
+        3) 安装: sudo yum install python2-certbot-nginx 成功安装后会产生certbot命令
+        4) certbot --nginx --nginx-server-root=/home/tkstation/nginx/conf -d www.laichujun.xyz
+            3.1) 有两个选择1. No redirect    2. Redirect        选择 1
