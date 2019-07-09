@@ -6,6 +6,21 @@
 
     video-9: 配置语法
         1) 配置文件由指令块及指令组成。指令块由｛｝括起来；指令以';'结尾，用空格与参数隔开
+        2) mime.types
+            MIME(Multipurpose Internet Mail Extensions)多用途互联网邮件扩展类型。是设定某种扩展名的文件用一种应用程序来打开的方式类型，当该扩展名文件被访问的时候，浏览器会自动使用指定应用程序来打开
+        3) 指令: 
+            http {
+                    提供指定HTTP服务器指令的配置文件上下文
+            
+                server {
+                            设置虚拟服务器的配置
+
+                    location {
+                                根据请求URI设置配置
+                    }
+                }
+            }
+
 
     video-10: nginx命令行
         1) nginx -h
