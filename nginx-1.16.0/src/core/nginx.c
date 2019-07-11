@@ -220,7 +220,7 @@ main(int argc, char *const *argv)
     }
 
     /* TODO */ ngx_max_sockets = -1;
-
+	// nginx time功能
     ngx_time_init();
 
 #if (NGX_PCRE)
