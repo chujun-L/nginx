@@ -229,7 +229,7 @@ main(int argc, char *const *argv)
 	// 获取进程及父进程号
     ngx_pid = ngx_getpid();
     ngx_parent = ngx_getppid();
-
+	// log功能
     log = ngx_log_init(ngx_prefix);
     if (log == NULL) {
         return 1;
