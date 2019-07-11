@@ -324,7 +324,7 @@ main(int argc, char *const *argv)
 
         return 0;
     }
-
+	// 处理signal
     if (ngx_signal) {
         return ngx_signal_process(cycle, ngx_signal);
     }
