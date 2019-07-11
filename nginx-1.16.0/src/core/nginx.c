@@ -190,7 +190,7 @@ static char        *ngx_signal;
 
 static char **ngx_os_environ;
 
-
+// nginx main函数
 int ngx_cdecl
 main(int argc, char *const *argv)
 {
@@ -206,7 +206,7 @@ main(int argc, char *const *argv)
     if (ngx_strerror_init() != NGX_OK) {
         return 1;
     }
-
+	// nginx启动参数
     if (ngx_get_options(argc, argv) != NGX_OK) {
         return 1;
     }
