@@ -127,3 +127,20 @@
             }
         2) ./openresty -s reload
         3) 在浏览器中输入192.168.1.101/lua，则会显示响应到的User-Agent字段
+
+    video-20: nginx的请求处理流程
+
+    video-21: nginx的进程结构
+        一个master进程，多个worker进程。master进程管理所有的worker进程，而worker进程用来处理请求，从头到尾占有同一个cpu核，因此worker_processes要配置与主机的cpu核数相等，并且邦定worker到对应的cpu核上。它是事件驱动的框架。
+        1） Q：为什么要采用多进程的模型
+            A：nginx要保持高可用性、高可靠性，而多线程是共用同一地址空间的，当线程的地址访问产生错误时，会让整个进程挂掉。多进程的模型不会产生这样的问题。
+
+    video-23: 使用进程管理nginx的父子进程
+        1） kill -l     列出linux系统支持的信号
+
+    video-25: 热升级的完整流程
+        1） 将旧的bin文件备份，例如重命令为nginx.old。然后将新的bin文件拷贝过来
+        2） 向master进程发送USR2(kill -USR2 pid)信号后，会发现nginx新建了master及worker进程(新的master是由旧的master创建的，而新的worker进程是由新的master创建的)，并且新建了pid，旧的pid被命名为pid.oldbin，此时新的bin文件已经起作用了。
+        3） 优雅的关闭旧的worker进程(kill -WINCH pid)。旧的master进程会保留，当新bin文件出错时，方便版本回滚。
+            * 如果需要关闭旧的master进程，可以向它发送QUIT信号(kill -QUIT pid)
+            * 如果新的bin有bug，需要回滚旧的bin，可以向旧的master发送HUP(接着旧的master会向新的master发送QUIT信号，让新的master关闭) kill -HUP old-master-pid
