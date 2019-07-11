@@ -244,7 +244,8 @@ main(int argc, char *const *argv)
      * init_cycle->log is required for signal handlers and
      * ngx_process_options()
      */
-
+	// cycle表示运行时的上下文，当nginx
+	// reload新的配置文件时就会产生一个新的cycle
     ngx_memzero(&init_cycle, sizeof(ngx_cycle_t));
     init_cycle.log = log;
     ngx_cycle = &init_cycle;
@@ -287,7 +288,7 @@ main(int argc, char *const *argv)
     if (ngx_preinit_modules() != NGX_OK) {
         return 1;
     }
-
+	// 创建cycle，ngx_init_cycle()的参数是前一个cycle，因此init_cycle会被cycle替换
     cycle = ngx_init_cycle(&init_cycle);
     if (cycle == NULL) {
         if (ngx_test_config) {
