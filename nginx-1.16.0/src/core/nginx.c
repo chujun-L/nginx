@@ -358,7 +358,7 @@ main(int argc, char *const *argv)
     }
 
 #endif
-
+	// 创建pid文件(logs/nginx.pid)
     if (ngx_create_pidfile(&ccf->pid, cycle->log) != NGX_OK) {
         return 1;
     }
