@@ -375,11 +375,12 @@ main(int argc, char *const *argv)
     }
 
     ngx_use_stderr = 0;
-
+	// 只启动master进程，不启动worker进程
     if (ngx_process == NGX_PROCESS_SINGLE) {
         ngx_single_process_cycle(cycle);
 
     } else {
+		// 启动master及worker进程
         ngx_master_process_cycle(cycle);
     }
 
