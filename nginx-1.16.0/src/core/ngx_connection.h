@@ -120,7 +120,7 @@ typedef enum {
 #define NGX_SSL_BUFFERED       0x01
 #define NGX_HTTP_V2_BUFFERED   0x02
 
-
+// ngx_connection_t套接字描述符的包装器
 struct ngx_connection_s {
     void               *data;
     ngx_event_t        *read;
