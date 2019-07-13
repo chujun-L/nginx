@@ -264,7 +264,7 @@ main(int argc, char *const *argv)
     if (ngx_process_options(&init_cycle) != NGX_OK) {
         return 1;
     }
-
+	// ngx系统初始化
     if (ngx_os_init(log) != NGX_OK) {
         return 1;
     }

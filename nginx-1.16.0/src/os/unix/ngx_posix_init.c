@@ -49,7 +49,7 @@ ngx_os_init(ngx_log_t *log)
     if (ngx_init_setproctitle(log) != NGX_OK) {
         return NGX_ERROR;
     }
-
+	// 获取页内存大小、NGX_CPU_CACHE_LINE
     ngx_pagesize = getpagesize();
     ngx_cacheline_size = NGX_CPU_CACHE_LINE;
 
@@ -71,15 +71,15 @@ ngx_os_init(ngx_log_t *log)
         ngx_cacheline_size = size;
     }
 #endif
-
+	// cpu信息
     ngx_cpuinfo();
-
+	// 获取可打开的最大文件描述符数
     if (getrlimit(RLIMIT_NOFILE, &rlmt) == -1) {
         ngx_log_error(NGX_LOG_ALERT, log, errno,
                       "getrlimit(RLIMIT_NOFILE) failed");
         return NGX_ERROR;
     }
-
+	// 最大socket数
     ngx_max_sockets = (ngx_int_t) rlmt.rlim_cur;
 
 #if (NGX_HAVE_INHERITED_NONBLOCK || NGX_HAVE_ACCEPT4)
@@ -87,7 +87,7 @@ ngx_os_init(ngx_log_t *log)
 #else
     ngx_inherited_nonblocking = 0;
 #endif
-
+	// 日期、时间
     tp = ngx_timeofday();
     srandom(((unsigned) ngx_pid << 16) ^ tp->sec ^ tp->msec);
 
