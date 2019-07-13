@@ -217,7 +217,7 @@ ngx_set_inherited_sockets(ngx_cycle_t *cycle)
         ls[i].backlog = NGX_LISTEN_BACKLOG;
 
         olen = sizeof(int);
-
+		// 获取socket类型
         if (getsockopt(ls[i].fd, SOL_SOCKET, SO_TYPE, (void *) &ls[i].type,
                        &olen)
             == -1)
@@ -229,7 +229,7 @@ ngx_set_inherited_sockets(ngx_cycle_t *cycle)
         }
 
         olen = sizeof(int);
-
+		// 获取socket接收缓冲区长度
         if (getsockopt(ls[i].fd, SOL_SOCKET, SO_RCVBUF, (void *) &ls[i].rcvbuf,
                        &olen)
             == -1)
@@ -242,7 +242,7 @@ ngx_set_inherited_sockets(ngx_cycle_t *cycle)
         }
 
         olen = sizeof(int);
-
+		// 获取socket发送缓冲区长度
         if (getsockopt(ls[i].fd, SOL_SOCKET, SO_SNDBUF, (void *) &ls[i].sndbuf,
                        &olen)
             == -1)

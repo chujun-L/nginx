@@ -27,7 +27,7 @@ static void ngx_unlock_mutexes(ngx_pid_t pid);
 
 
 int              ngx_argc;
-char           **ngx_argv;
+char           **ngx_argv;	// 保存启动参数
 char           **ngx_os_argv;
 
 ngx_int_t        ngx_process_slot;

@@ -188,7 +188,7 @@ static u_char      *ngx_conf_params;
 static char        *ngx_signal;
 
 
-static char **ngx_os_environ;
+static char **ngx_os_environ;	// 运行系统的环境变量
 
 // nginx main函数
 int ngx_cdecl
@@ -246,19 +246,21 @@ main(int argc, char *const *argv)
      */
 	// cycle表示运行时的上下文，当nginx
 	// reload新的配置文件时就会产生一个新的cycle
+	
+	// init_cycle分析 
     ngx_memzero(&init_cycle, sizeof(ngx_cycle_t));
     init_cycle.log = log;
     ngx_cycle = &init_cycle;
-
+	// init_cycle的内存池为1k
     init_cycle.pool = ngx_create_pool(1024, log);
     if (init_cycle.pool == NULL) {
         return 1;
     }
-
+	// 保存init_cycle启动参数到ngx_argv
     if (ngx_save_argv(&init_cycle, argc, argv) != NGX_OK) {
         return 1;
     }
-
+	// 处理init_cycle的--prefix、配置文件
     if (ngx_process_options(&init_cycle) != NGX_OK) {
         return 1;
     }
@@ -280,7 +282,7 @@ main(int argc, char *const *argv)
      */
 
     ngx_slab_sizes_init();
-
+	// init_cycle的继承socket处理
     if (ngx_add_inherited_sockets(&init_cycle) != NGX_OK) {
         return 1;
     }
@@ -456,7 +458,7 @@ ngx_add_inherited_sockets(ngx_cycle_t *cycle)
     u_char           *p, *v, *inherited;
     ngx_int_t         s;
     ngx_listening_t  *ls;
-
+	// 当获取到"NGINX"环境变量时，继承sockets
     inherited = (u_char *) getenv(NGINX_VAR);
 
     if (inherited == NULL) {
@@ -465,7 +467,7 @@ ngx_add_inherited_sockets(ngx_cycle_t *cycle)
 
     ngx_log_error(NGX_LOG_NOTICE, cycle->log, 0,
                   "using inherited sockets from \"%s\"", inherited);
-
+	// 在init_cycle的内存池里初始化ngx_listening_t[10]
     if (ngx_array_init(&cycle->listening, cycle->pool, 10,
                        sizeof(ngx_listening_t))
         != NGX_OK)
@@ -503,7 +505,7 @@ ngx_add_inherited_sockets(ngx_cycle_t *cycle)
                       " environment variable, ignoring", v);
     }
 
-    ngx_inherited = 1;
+    ngx_inherited = 1;	// 置位继承标志
 
     return ngx_set_inherited_sockets(cycle);
 }
@@ -883,7 +885,7 @@ ngx_save_argv(ngx_cycle_t *cycle, int argc, char *const *argv)
 
     ngx_os_argv = (char **) argv;
     ngx_argc = argc;
-
+	// char **ngx_argv(ngx_process.c)
     ngx_argv = ngx_alloc((argc + 1) * sizeof(char *), cycle->log);
     if (ngx_argv == NULL) {
         return NGX_ERROR;

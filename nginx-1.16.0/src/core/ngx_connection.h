@@ -12,7 +12,7 @@
 #include <ngx_config.h>
 #include <ngx_core.h>
 
-
+// ngx_listening_s结构体
 typedef struct ngx_listening_s  ngx_listening_t;
 
 struct ngx_listening_s {
