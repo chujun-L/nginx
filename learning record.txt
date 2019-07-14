@@ -137,6 +137,13 @@
 
     video-23: 使用进程管理nginx的父子进程
         1） kill -l     列出linux系统支持的信号
+        2)  在ngx_config.h文件中，定义了相关的信号
+            #define NGX_SHUTDOWN_SIGNAL      QUIT
+            #define NGX_TERMINATE_SIGNAL     TERM
+            #define NGX_NOACCEPT_SIGNAL      WINCH
+            #define NGX_RECONFIGURE_SIGNAL   HUP
+            #define NGX_REOPEN_SIGNAL        USR1
+            #define NGX_CHANGEBIN_SIGNAL     USR2
 
     video-25: 热升级的完整流程
         1） 将旧的bin文件备份，例如重命令为nginx.old。然后将新的bin文件拷贝过来
@@ -144,3 +151,6 @@
         3） 优雅的关闭旧的worker进程(kill -WINCH pid)。旧的master进程会保留，当新bin文件出错时，方便版本回滚。
             * 如果需要关闭旧的master进程，可以向它发送QUIT信号(kill -QUIT pid)
             * 如果新的bin有bug，需要回滚旧的bin，可以向旧的master发送HUP(接着旧的master会向新的master发送QUIT信号，让新的master关闭) kill -HUP old-master-pid
+
+    video-27: 网络收发与nginx事件间的对应关系
+        1） nginx是事件驱动的框架，相应它就会有一个事件的收集器(epoll)、分发器
