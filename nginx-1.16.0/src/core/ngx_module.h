@@ -218,7 +218,7 @@
 
 #define NGX_MODULE_V1_PADDING  0, 0, 0, 0, 0, 0, 0, 0
 
-
+// ngx大部分的功能都是作为模块(module)实现的，module的结构体如下：
 struct ngx_module_s {
     ngx_uint_t            ctx_index;
     ngx_uint_t            index;
