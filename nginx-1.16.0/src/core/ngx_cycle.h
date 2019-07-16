@@ -118,7 +118,7 @@ typedef struct {
 
     ngx_uint_t                transparent;  /* unsigned  transparent:1; */
 } ngx_core_conf_t;
-
+// 核心配置指令
 
 #define ngx_is_init_cycle(cycle)  (cycle->conf_ctx == NULL)
 
