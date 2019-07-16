@@ -164,7 +164,7 @@ static ngx_core_module_t  ngx_core_module_ctx = {
 
 
 ngx_module_t  ngx_core_module = {
-    NGX_MODULE_V1,
+    NGX_MODULE_V1,						   /* 这个宏用来填充module私有成员(7个) */
     &ngx_core_module_ctx,                  /* module context */
     ngx_core_commands,                     /* module directives */
     NGX_CORE_MODULE,                       /* module type */
@@ -1007,7 +1007,7 @@ ngx_process_options(ngx_cycle_t *cycle)
     return NGX_OK;
 }
 
-
+// 初始化核心配置指令结构体
 static void *
 ngx_core_module_create_conf(ngx_cycle_t *cycle)
 {
