@@ -218,7 +218,7 @@
 
 #define NGX_MODULE_V1_PADDING  0, 0, 0, 0, 0, 0, 0, 0
 
-// ngx大部分的功能都是作为模块(module)实现的，module的结构体如下：
+// ngx是由模块构成的，因此ngx大部分的功能都是作为模块(module)实现的，module的结构体如下：
 struct ngx_module_s {
     ngx_uint_t            ctx_index;
     ngx_uint_t            index;
@@ -230,6 +230,7 @@ struct ngx_module_s {
 
     ngx_uint_t            version;
     const char           *signature;
+	// 以上7个成员为模块的私有成员
 
     void                 *ctx;
     ngx_command_t        *commands;

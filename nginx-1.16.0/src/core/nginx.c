@@ -334,7 +334,7 @@ main(int argc, char *const *argv)
     ngx_os_status(cycle->log);
 
     ngx_cycle = cycle;
-	// 配置文件
+	// 获取ngx核心的配置指令 cycle->conf_ctx[ngx_core_module.NGX_MODULE_UNSET_INDEX]
     ccf = (ngx_core_conf_t *) ngx_get_conf(cycle->conf_ctx, ngx_core_module);
 
     if (ccf->master && ngx_process == NGX_PROCESS_SINGLE) {
